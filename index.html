@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +21,7 @@
     .cursor-ring{position:fixed;width:40px;height:40px;border:1px solid rgba(212,168,67,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.15s ease-out,width 0.3s,height 0.3s;}
     .cursor.hovering{width:20px;height:20px;}
     .cursor-ring.hovering{width:60px;height:60px;border-color:var(--ember);}
+    @media(max-width:768px){.cursor,.cursor-ring{display:none;}}
 
     /* ── PAGE SYSTEM ── */
     .page{display:none;min-height:100vh;}
@@ -43,6 +45,20 @@
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
     .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
 
+    /* ── HAMBURGER ── */
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:200;background:none;border:none;}
+    .hamburger span{display:block;width:26px;height:2px;background:var(--gold);transition:all 0.3s;}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    /* ── MOBILE NAV DRAWER ── */
+    .mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(26,18,8,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
+    .mobile-nav.open{display:flex;animation:fadeIn 0.3s ease;}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    .mobile-nav a{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--cream);text-decoration:none;cursor:pointer;transition:color 0.3s;letter-spacing:2px;}
+    .mobile-nav a:hover,.mobile-nav a.active{color:var(--gold);}
+
     /* ── HERO ── */
     .hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
     .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=90') center/cover no-repeat;transform:scale(1.08);animation:heroBgZoom 8s ease forwards;}
@@ -53,12 +69,12 @@
     .particle{position:absolute;border-radius:50%;background:var(--gold);opacity:0;animation:floatUp linear infinite;}
     @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(0);}10%{opacity:0.6;}80%{opacity:0.2;}100%{opacity:0;transform:translateY(-100vh) scale(1);}}
 
-    .hero-content{position:relative;text-align:center;z-index:2;}
+    .hero-content{position:relative;text-align:center;z-index:2;padding:0 20px;}
     .hero-eyebrow{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:500;opacity:0;animation:fadeUp 0.8s 0.4s forwards;}
     .hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,9vw,110px);font-weight:900;line-height:0.9;letter-spacing:-2px;opacity:0;animation:fadeUp 1s 0.6s forwards;}
     .hero-title .line2{color:var(--ember);font-style:italic;display:block;}
-    .hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;font-weight:300;color:rgba(245,240,232,0.75);margin-top:24px;letter-spacing:1px;opacity:0;animation:fadeUp 0.8s 1s forwards;}
-    .hero-cta{display:flex;gap:16px;justify-content:center;margin-top:48px;opacity:0;animation:fadeUp 0.8s 1.2s forwards;}
+    .hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.5vw,20px);font-style:italic;font-weight:300;color:rgba(245,240,232,0.75);margin-top:24px;letter-spacing:1px;opacity:0;animation:fadeUp 0.8s 1s forwards;}
+    .hero-cta{display:flex;gap:16px;justify-content:center;margin-top:48px;opacity:0;animation:fadeUp 0.8s 1.2s forwards;flex-wrap:wrap;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
     .hero-divider{position:absolute;bottom:0;left:0;right:0;z-index:2;}
@@ -93,21 +109,20 @@
     .delay-4{transition-delay:0.4s!important;}
 
     /* ── FEATURES STRIP ── */
-    .features-strip{display:flex;justify-content:center;}
-    .feature-item{flex:1;max-width:300px;padding:28px 40px;text-align:center;border-right:1px solid rgba(255,255,255,0.2);transition:background 0.3s;}
+    .features-strip{display:flex;justify-content:center;flex-wrap:wrap;}
+    .feature-item{flex:1;min-width:140px;max-width:300px;padding:28px 40px;text-align:center;border-right:1px solid rgba(255,255,255,0.2);transition:background 0.3s;}
     .feature-item:last-child{border-right:none;}
     .feature-item:hover{background:rgba(255,255,255,0.08);}
     .feature-icon{font-size:26px;margin-bottom:10px;display:block;transition:transform 0.4s;line-height:1.2;}
     .feature-item:hover .feature-icon{transform:scale(1.2) rotate(5deg);}
     .feature-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:500;}
 
-    /* SVG icon helper */
     .icon-svg{width:28px;height:28px;display:inline-block;vertical-align:middle;fill:currentColor;}
 
     /* ── SECTION SHARED ── */
     section{padding:100px 60px;}
     .section-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:500;}
-    .section-title{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,64px);font-weight:700;line-height:1.1;}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.1;}
     .section-body{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1.8;color:rgba(245,240,232,0.75);max-width:540px;}
 
     /* ── ABOUT SPLIT ── */
@@ -117,7 +132,7 @@
     .about-img-wrap:hover img{filter:saturate(1) contrast(1.05);}
     .about-img-accent{position:absolute;bottom:-20px;right:-20px;width:180px;height:180px;border:2px solid var(--gold);z-index:-1;animation:borderPulse 3s ease infinite;}
     @keyframes borderPulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-    .about-stats{display:flex;gap:40px;margin-top:40px;}
+    .about-stats{display:flex;gap:40px;margin-top:40px;flex-wrap:wrap;}
     .stat-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--ember);line-height:1;transition:color 0.3s;}
     .about-stats > div:hover .stat-num{color:var(--gold);}
     .stat-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--light-ash);margin-top:4px;}
@@ -244,7 +259,7 @@
     .contact-item{margin-top:36px;}
     .contact-item-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:8px;}
     .contact-item-value{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;line-height:1.5;}
-    .contact-map{background:url('https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1200&q=80') center/cover;position:relative;}
+    .contact-map{background:url('https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1200&q=80') center/cover;position:relative;min-height:300px;}
     .contact-map::after{content:'';position:absolute;inset:0;background:rgba(26,18,8,0.25);}
 
     /* ── FOOTER ── */
@@ -258,7 +273,7 @@
     .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
     .footer-links a{font-size:13px;color:var(--light-ash);text-decoration:none;cursor:pointer;transition:color 0.3s,transform 0.3s;display:inline-block;}
     .footer-links a:hover{color:var(--cream);transform:translateX(4px);}
-    .footer-bottom{background:#0d0905;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,240,232,0.04);}
+    .footer-bottom{background:#0d0905;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,240,232,0.04);flex-wrap:wrap;gap:12px;}
     .footer-copy{font-size:11px;color:rgba(245,240,232,0.3);letter-spacing:1px;}
 
     /* ── PARALLAX SECTION ── */
@@ -266,7 +281,7 @@
     .parallax-bg{position:absolute;inset:-60px;background:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1800&q=80') center/cover no-repeat;filter:brightness(0.35);}
     .parallax-content{position:relative;z-index:2;max-width:700px;padding:0 40px;}
     .parallax-quote-mark{font-family:'Playfair Display',serif;font-size:120px;line-height:0.5;color:var(--ember);opacity:0.4;display:block;margin-bottom:24px;}
-    .parallax-text{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,36px);font-style:italic;font-weight:300;line-height:1.4;color:var(--cream);}
+    .parallax-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,36px);font-style:italic;font-weight:300;line-height:1.4;color:var(--cream);}
     .parallax-attr{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-top:24px;}
 
     /* ── LOADING SCREEN ── */
@@ -279,18 +294,124 @@
     @keyframes loaderPulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
     @keyframes loaderFill{from{width:0;}to{width:100%;}}
 
-    @media(max-width:900px){
+    /* ═══════════════════════════════════════════
+       RESPONSIVE BREAKPOINTS
+    ═══════════════════════════════════════════ */
+
+    /* ── TABLET (max 1024px) ── */
+    @media(max-width:1024px){
+      nav{padding:18px 40px;}
+      nav.scrolled{padding:12px 40px;}
+      section{padding:80px 40px;}
+      .testimonials-section{padding:80px 40px;}
+      .about-split{gap:50px;}
+      footer{padding:50px 40px;gap:40px;grid-template-columns:1fr 1fr;}
+      .footer-bottom{padding:20px 40px;}
+      .res-left{padding:120px 40px 60px;}
+      .res-right{padding:60px 40px;}
+      .contact-info{padding:60px 40px;}
+      .gallery-hero{padding:60px 40px;}
+      .menu-hero{padding:60px 40px;}
+    }
+
+    /* ── MOBILE (max 768px) ── */
+    @media(max-width:768px){
+
+      /* Nav */
       nav{padding:16px 24px;}
-      .nav-links{gap:18px;}
-      .nav-links a{font-size:10px;}
+      nav.scrolled{padding:12px 24px;}
+      .nav-links{display:none;}
+      .hamburger{display:flex;}
+
+      /* Hero */
+      .hero-eyebrow{font-size:8px;letter-spacing:4px;}
+      .hero-title{letter-spacing:-1px;}
+      .hero-cta{flex-direction:column;align-items:center;gap:12px;}
+      .btn-primary,.btn-outline{width:220px;text-align:center;}
+
+      /* Features strip */
+      .features-strip{flex-wrap:wrap;}
+      .feature-item{min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,0.15);padding:22px 20px;}
+      .feature-item:nth-child(odd){border-right:1px solid rgba(255,255,255,0.15);}
+      .feature-item:nth-last-child(-n+2){border-bottom:none;}
+
+      /* Sections */
       section{padding:60px 24px;}
-      .about-split,.menu-grid,.contact-layout,.res-layout{grid-template-columns:1fr;}
-      .gallery-masonry{grid-template-columns:1fr 1fr;}
-      .gallery-item:nth-child(1){grid-column:span 2;}
-      .gallery-item:nth-child(5){grid-column:span 2;}
-      footer{grid-template-columns:1fr 1fr;gap:36px;padding:40px 24px;}
+      .testimonials-section{padding:60px 24px;}
+
+      /* About */
+      .about-split{grid-template-columns:1fr;gap:40px;}
+      .about-img-wrap img{height:320px;}
+      .about-img-accent{width:100px;height:100px;bottom:-12px;right:-12px;}
+      .about-stats{gap:28px;}
+      .stat-num{font-size:38px;}
+
+      /* Dishes grid */
+      .dishes-grid-3{grid-template-columns:1fr!important;}
+      .dish-card img{height:280px;}
+
+      /* Testimonials */
       .testimonials-grid{grid-template-columns:1fr;}
+      .testimonial-card{padding:28px 24px;}
+
+      /* Parallax */
+      .parallax-content{padding:0 24px;}
+      .parallax-quote-mark{font-size:80px;}
+
+      /* Menu */
+      .menu-hero{height:40vh;padding:60px 24px 40px;}
+      .menu-categories{gap:8px;}
+      .cat-btn{padding:8px 16px;font-size:8px;}
+      .menu-grid{grid-template-columns:1fr;}
+      .menu-item{padding:20px 16px;}
+      .menu-item-img{width:64px;height:64px;}
+      .menu-item-name{font-size:15px;}
+      .menu-item-price{font-size:18px;}
+
+      /* Gallery */
+      .gallery-hero{height:36vh;padding:60px 24px 40px;}
+      .gallery-masonry{grid-template-columns:1fr 1fr;}
+      .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1;}
+      .gallery-item:nth-child(5){grid-column:span 2;}
+      .gallery-item img{min-height:180px;}
+
+      /* Reservation */
+      .res-layout{grid-template-columns:1fr;}
+      .res-left{min-height:50vh;padding:80px 24px 40px;}
+      .res-right{padding:40px 24px;}
+      .form-row{grid-template-columns:1fr;}
+
+      /* Order grid */
       .order-grid{grid-template-columns:1fr;}
+
+      /* Contact */
+      .contact-layout{grid-template-columns:1fr;}
+      .contact-info{padding:60px 24px;}
+      .contact-map{min-height:260px;}
+
+      /* Footer */
+      footer{grid-template-columns:1fr;gap:36px;padding:40px 24px;}
+      .footer-bottom{padding:16px 24px;flex-direction:column;text-align:center;}
+
+      /* Ticker */
+      .ticker-item{padding:0 28px;}
+      .ticker-item::before{margin-right:28px;}
+    }
+
+    /* ── SMALL MOBILE (max 480px) ── */
+    @media(max-width:480px){
+      .hero-eyebrow{font-size:7px;letter-spacing:3px;}
+      .loader-logo{font-size:34px;}
+      .about-stats{flex-direction:column;gap:20px;}
+      .menu-item{gap:12px;}
+      .menu-item-img{width:56px;height:56px;}
+      .gallery-masonry{grid-template-columns:1fr;}
+      .gallery-item:nth-child(1){grid-column:span 1;grid-row:span 1;}
+      .gallery-item:nth-child(5){grid-column:span 1;}
+      .gallery-item img{min-height:220px;}
+      .res-left{min-height:40vh;}
+      section{padding:50px 18px;}
+      .testimonials-section{padding:50px 18px;}
     }
   </style>
 </head>
@@ -312,6 +433,15 @@
   <img id="lbImg" src="" alt=""/>
 </div>
 
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" id="mobileNav">
+  <a class="active" onclick="showPage('home');closeMobileNav()" data-mob-page="home">Home</a>
+  <a onclick="showPage('menu');closeMobileNav()" data-mob-page="menu">Menu</a>
+  <a onclick="showPage('gallery');closeMobileNav()" data-mob-page="gallery">Gallery</a>
+  <a onclick="showPage('reservation');closeMobileNav()" data-mob-page="reservation">Reserve</a>
+  <a onclick="showPage('contact');closeMobileNav()" data-mob-page="contact">Contact</a>
+</div>
+
 <!-- ── NAVBAR ── -->
 <nav id="mainNav">
   <a class="nav-logo" onclick="showPage('home')">Atiya's <span>Kitchen</span></a>
@@ -322,6 +452,9 @@
     <li><a onclick="showPage('reservation')" data-page="reservation">Reserve</a></li>
     <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 
@@ -367,28 +500,24 @@
   <div class="features-strip" style="background:rgba(200,98,42,0.9)">
     <div class="feature-item reveal delay-1">
       <span class="feature-icon">
-        <!-- Flame / tandoor icon -->
         <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C9.5 5 8 7.5 8 10c0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.5-2C14.5 10 14 12 12 12c-1.1 0-2-.9-2-2 0-2 2-4 2-8zm0 14c-3.3 0-6 1.3-6 3h12c0-1.7-2.7-3-6-3z"/></svg>
       </span>
       <div class="feature-label">Tandoor Grilling</div>
     </div>
     <div class="feature-item reveal delay-2">
       <span class="feature-icon">
-        <!-- Tea cup icon -->
         <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg"><path d="M20 3H4v10c0 2.2 1.8 4 4 4h6c2.2 0 4-1.8 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg>
       </span>
       <div class="feature-label">Premium Chai</div>
     </div>
     <div class="feature-item reveal delay-3">
       <span class="feature-icon">
-        <!-- Chef hat icon -->
         <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg"><path d="M18.5 3A4.5 4.5 0 0 0 14.5 6 3.5 3.5 0 0 0 12 5.5 3.5 3.5 0 0 0 9.5 6 4.5 4.5 0 0 0 5.5 3 4.5 4.5 0 0 0 1 7.5c0 1.6.84 3 2.09 3.84L4 20h16l.91-8.66A4.5 4.5 0 0 0 23 7.5 4.5 4.5 0 0 0 18.5 3zM8 18v-2h8v2H8z"/></svg>
       </span>
       <div class="feature-label">Award-Winning Chefs</div>
     </div>
     <div class="feature-item reveal delay-4">
       <span class="feature-icon">
-        <!-- Star icon -->
         <svg viewBox="0 0 24 24" class="icon-svg" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </span>
       <div class="feature-label">Michelin Recognised</div>
@@ -427,7 +556,7 @@
       <p class="section-eyebrow reveal">Chef's Selection</p>
       <h2 class="section-title reveal delay-1">Signature Dishes</h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px">
+    <div class="dishes-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px">
       <div class="dish-card reveal delay-1" onclick="showPage('menu')">
         <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=85" alt="Nihari"/>
         <div class="dish-overlay">
@@ -739,7 +868,6 @@
       <p class="section-eyebrow">Online Booking</p>
       <h2 class="section-title" style="font-size:32px;margin-bottom:32px">Make a Reservation</h2>
 
-      <!-- PERSONAL DETAILS -->
       <div class="form-row">
         <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="Ali"/></div>
         <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Khan"/></div>
@@ -763,12 +891,9 @@
         </div>
       </div>
 
-      <!-- PRE-ORDER SECTION -->
       <div class="order-section">
         <div class="order-title">Pre-Order Your Food (Optional)</div>
-        <div class="order-grid" id="orderGrid">
-          <!-- Items injected by JS -->
-        </div>
+        <div class="order-grid" id="orderGrid"></div>
         <div class="order-summary" id="orderSummary">
           <div class="order-summary-title">Your Pre-Order</div>
           <div class="order-summary-items" id="orderSummaryItems"></div>
@@ -820,25 +945,22 @@
 
 
 <script>
-// ── MENU ITEMS DATA (for order selection) ──
 const menuItems = [
-  { id:'nihari',    name:'Dum Nihari',             price:1800, cat:'mains'    },
-  { id:'biryani',   name:'Lahori Mutton Biryani',  price:1500, cat:'mains'    },
-  { id:'raan',      name:'Raan Masala',             price:3200, cat:'mains'    },
-  { id:'haleem',    name:'Haleem',                  price:1200, cat:'mains'    },
-  { id:'ckarahi',   name:'Charsi Chicken Karahi',   price:1600, cat:'karahi'   },
-  { id:'mkarahi',   name:'Mutton Karahi',            price:2200, cat:'karahi'   },
-  { id:'seekh',     name:'Seekh Kebab Platter',      price:850,  cat:'starters' },
-  { id:'chapli',    name:'Chapli Kebab',             price:750,  cat:'starters' },
-  { id:'paya',      name:'Paya Shorba',              price:650,  cat:'starters' },
-  { id:'chaat',     name:'Dahi Puri Chaat',          price:450,  cat:'starters' },
-  { id:'kheer',     name:'Kheer',                   price:400,  cat:'desserts' },
-  { id:'shahi',     name:'Shahi Tukray',             price:550,  cat:'desserts' },
-  { id:'kchai',     name:'Kashmiri Chai',            price:350,  cat:'drinks'   },
-  { id:'rooh',      name:'Rooh Afza Sharbat',        price:280,  cat:'drinks'   },
+  { id:'nihari',  name:'Dum Nihari',            price:1800, cat:'mains'    },
+  { id:'biryani', name:'Lahori Mutton Biryani', price:1500, cat:'mains'    },
+  { id:'raan',    name:'Raan Masala',            price:3200, cat:'mains'    },
+  { id:'haleem',  name:'Haleem',                 price:1200, cat:'mains'    },
+  { id:'ckarahi', name:'Charsi Chicken Karahi',  price:1600, cat:'karahi'   },
+  { id:'mkarahi', name:'Mutton Karahi',           price:2200, cat:'karahi'   },
+  { id:'seekh',   name:'Seekh Kebab Platter',     price:850,  cat:'starters' },
+  { id:'chapli',  name:'Chapli Kebab',            price:750,  cat:'starters' },
+  { id:'paya',    name:'Paya Shorba',             price:650,  cat:'starters' },
+  { id:'chaat',   name:'Dahi Puri Chaat',         price:450,  cat:'starters' },
+  { id:'kheer',   name:'Kheer',                  price:400,  cat:'desserts' },
+  { id:'shahi',   name:'Shahi Tukray',            price:550,  cat:'desserts' },
+  { id:'kchai',   name:'Kashmiri Chai',           price:350,  cat:'drinks'   },
+  { id:'rooh',    name:'Rooh Afza Sharbat',       price:280,  cat:'drinks'   },
 ];
-
-// order state: { id: qty }
 const orderState = {};
 
 function buildOrderGrid(){
@@ -870,45 +992,36 @@ function buildOrderGrid(){
 function toggleOrderItem(id){
   const el = document.getElementById('oi-' + id);
   const qtyRow = document.getElementById('qty-row-' + id);
-  if(orderState[id]){
-    delete orderState[id];
-    el.classList.remove('selected');
-    qtyRow.style.display = 'none';
-  } else {
-    orderState[id] = 1;
-    el.classList.add('selected');
-    qtyRow.style.display = 'flex';
-    document.getElementById('qty-num-' + id).textContent = 1;
-  }
+  if(orderState[id]){ delete orderState[id]; el.classList.remove('selected'); qtyRow.style.display='none'; }
+  else { orderState[id]=1; el.classList.add('selected'); qtyRow.style.display='flex'; document.getElementById('qty-num-'+id).textContent=1; }
   updateOrderSummary();
 }
 
-function changeQty(id, delta, e){
+function changeQty(id,delta,e){
   e.stopPropagation();
   if(!orderState[id]) return;
-  orderState[id] = Math.max(1, (orderState[id] || 1) + delta);
-  document.getElementById('qty-num-' + id).textContent = orderState[id];
+  orderState[id]=Math.max(1,(orderState[id]||1)+delta);
+  document.getElementById('qty-num-'+id).textContent=orderState[id];
   updateOrderSummary();
 }
 
 function updateOrderSummary(){
-  const summary = document.getElementById('orderSummary');
-  const itemsEl = document.getElementById('orderSummaryItems');
-  const totalEl = document.getElementById('orderTotal');
-  const ids = Object.keys(orderState);
-  if(ids.length === 0){ summary.classList.remove('visible'); return; }
+  const summary=document.getElementById('orderSummary');
+  const itemsEl=document.getElementById('orderSummaryItems');
+  const totalEl=document.getElementById('orderTotal');
+  const ids=Object.keys(orderState);
+  if(ids.length===0){summary.classList.remove('visible');return;}
   summary.classList.add('visible');
-  let total = 0;
-  let html = '';
-  ids.forEach(id => {
-    const item = menuItems.find(m => m.id === id);
-    const qty = orderState[id];
-    const sub = item.price * qty;
-    total += sub;
-    html += `${qty}x ${item.name} &mdash; Rs.${sub.toLocaleString()}<br>`;
+  let total=0,html='';
+  ids.forEach(id=>{
+    const item=menuItems.find(m=>m.id===id);
+    const qty=orderState[id];
+    const sub=item.price*qty;
+    total+=sub;
+    html+=`${qty}x ${item.name} &mdash; Rs.${sub.toLocaleString()}<br>`;
   });
-  itemsEl.innerHTML = html;
-  totalEl.innerHTML = `Total: Rs.${total.toLocaleString()}`;
+  itemsEl.innerHTML=html;
+  totalEl.innerHTML=`Total: Rs.${total.toLocaleString()}`;
 }
 
 // ── LOADER ──
@@ -918,42 +1031,55 @@ window.addEventListener('load',()=>{
 });
 
 // ── CURSOR ──
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
-  setTimeout(()=>{ ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px'; }, 60);
+const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px';
+  setTimeout(()=>{ ring.style.left=e.clientX+'px'; ring.style.top=e.clientY+'px'; },60);
 });
 document.querySelectorAll('a,button,.gallery-item,.dish-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ cur.classList.add('hovering'); ring.classList.add('hovering'); });
   el.addEventListener('mouseleave',()=>{ cur.classList.remove('hovering'); ring.classList.remove('hovering'); });
 });
 
+// ── HAMBURGER / MOBILE NAV ──
+function toggleMobileNav(){
+  const nav=document.getElementById('mobileNav');
+  const ham=document.getElementById('hamburger');
+  nav.classList.toggle('open');
+  ham.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+
 // ── NAV SCROLL ──
 window.addEventListener('scroll',()=>{
-  const nav = document.getElementById('mainNav');
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
   parallaxEffect();
 });
 
 // ── PARALLAX ──
 function parallaxEffect(){
-  const bg = document.getElementById('parallaxBg');
+  const bg=document.getElementById('parallaxBg');
   if(!bg) return;
-  const rect = bg.closest('.parallax-quote').getBoundingClientRect();
-  const offset = (rect.top / window.innerHeight) * 40;
-  bg.style.transform = `translateY(${offset}px)`;
+  const rect=bg.closest('.parallax-quote').getBoundingClientRect();
+  const offset=(rect.top/window.innerHeight)*40;
+  bg.style.transform=`translateY(${offset}px)`;
 }
 
 // ── PARTICLES ──
 function createParticles(){
-  const container = document.getElementById('particles');
+  const container=document.getElementById('particles');
   if(!container) return;
   for(let i=0;i<18;i++){
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random()*4+2;
-    p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*4+2;
+    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
     container.appendChild(p);
   }
 }
@@ -962,17 +1088,18 @@ function createParticles(){
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  const pg = document.getElementById('page-'+name);
-  pg.classList.add('active');
+  document.querySelectorAll('.mobile-nav a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
   document.querySelector(`[data-page="${name}"]`)?.classList.add('active');
+  document.querySelector(`[data-mob-page="${name}"]`)?.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(initScrollReveal, 100);
+  setTimeout(initScrollReveal,100);
 }
 
 // ── SCROLL REVEAL ──
 function initScrollReveal(){
-  const els = document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
-  const io = new IntersectionObserver((entries)=>{
+  const els=document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
+  const io=new IntersectionObserver(entries=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
   },{threshold:0.12});
   els.forEach(el=>{ if(!el.classList.contains('visible')) io.observe(el); });
@@ -981,20 +1108,16 @@ function initScrollReveal(){
 // ── COUNTER ANIMATION ──
 function animateCounters(){
   document.querySelectorAll('[data-target]').forEach(el=>{
-    const target = parseInt(el.dataset.target);
-    const span = el.querySelector('.count-up');
-    if(!span || span.dataset.done) return;
-    span.dataset.done = 'true';
-    let current = 0;
-    const step = Math.ceil(target / 40);
-    const timer = setInterval(()=>{
-      current = Math.min(current + step, target);
-      span.textContent = current;
-      if(current >= target) clearInterval(timer);
-    },40);
+    const target=parseInt(el.dataset.target);
+    const span=el.querySelector('.count-up');
+    if(!span||span.dataset.done) return;
+    span.dataset.done='true';
+    let current=0;
+    const step=Math.ceil(target/40);
+    const timer=setInterval(()=>{ current=Math.min(current+step,target); span.textContent=current; if(current>=target) clearInterval(timer); },40);
   });
 }
-const countObs = new IntersectionObserver(entries=>{
+const countObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) animateCounters(); });
 },{threshold:0.3});
 document.querySelectorAll('.about-stats').forEach(el=>countObs.observe(el));
@@ -1004,17 +1127,13 @@ function filterMenu(cat,btn){
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.menu-item').forEach(item=>{
-    if(cat==='all'||item.dataset.cat===cat){
-      item.style.display='flex';
-      item.style.animation='none';
-      item.offsetHeight;
-      item.style.animation='fadeUp 0.4s ease forwards';
-    } else { item.style.display='none'; }
+    if(cat==='all'||item.dataset.cat===cat){ item.style.display='flex'; item.style.animation='none'; item.offsetHeight; item.style.animation='fadeUp 0.4s ease forwards'; }
+    else { item.style.display='none'; }
   });
 }
 
 // ── LIGHTBOX ──
-function openLightbox(src){ const lb=document.getElementById('lightbox'); document.getElementById('lbImg').src=src; lb.classList.add('open'); }
+function openLightbox(src){ document.getElementById('lbImg').src=src; document.getElementById('lightbox').classList.add('open'); }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
 
