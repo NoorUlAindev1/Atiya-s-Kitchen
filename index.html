@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +10,7 @@
     :root {
       --cream:#f5f0e8; --dark:#1a1208; --ember:#c8622a;
       --gold:#d4a843; --ash:#4a4035; --light-ash:#8a7e70;
+      --error:#e05252; --success-bg:rgba(200,98,42,0.12);
     }
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
@@ -135,7 +135,6 @@
     .about-stats{display:flex;gap:40px;margin-top:40px;flex-wrap:wrap;}
     .stat-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--ember);line-height:1;transition:color 0.3s;}
     .about-stats > div:hover .stat-num{color:var(--gold);}
-    .stat-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--light-ash);margin-top:4px;}
     .count-up{display:inline-block;}
 
     /* ── DISHES CARDS ── */
@@ -218,13 +217,23 @@
     .res-left-content{position:relative;z-index:2;}
     .res-right{background:var(--dark);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
 
-    .form-group{margin-bottom:24px;}
+    /* ── FORM & VALIDATION STYLES ── */
+    .form-group{margin-bottom:24px;position:relative;}
     .form-label{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--light-ash);margin-bottom:10px;font-weight:500;}
+    .form-label .req-star{color:var(--ember);margin-left:2px;}
     .form-input,.form-select,.form-textarea{width:100%;background:rgba(245,240,232,0.05);border:1px solid rgba(245,240,232,0.12);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:14px;padding:14px 18px;outline:none;transition:border-color 0.3s,background 0.3s,transform 0.2s;}
     .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);background:rgba(212,168,67,0.06);transform:translateX(2px);}
     .form-select option{background:var(--dark);}
     .form-textarea{min-height:100px;resize:vertical;}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+    /* ── ERROR STATES ── */
+    .form-input.error,.form-select.error,.form-textarea.error{border-color:var(--error) !important;background:rgba(224,82,82,0.06) !important;animation:shakeField 0.4s ease;}
+    @keyframes shakeField{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+    .field-error{display:none;font-size:10px;color:var(--error);letter-spacing:1px;margin-top:6px;padding-left:2px;}
+    .field-error.show{display:block;animation:fadeUp 0.3s ease;}
+    .form-input.valid,.form-select.valid,.form-textarea.valid{border-color:rgba(100,200,120,0.5);}
+
     .success-msg{display:none;background:rgba(200,98,42,0.12);border:1px solid var(--ember);padding:16px 24px;margin-top:20px;font-size:13px;color:var(--gold);text-align:center;letter-spacing:1px;animation:fadeUp 0.5s ease;}
 
     /* ── ORDER SELECTION ── */
@@ -297,8 +306,6 @@
     /* ═══════════════════════════════════════════
        RESPONSIVE BREAKPOINTS
     ═══════════════════════════════════════════ */
-
-    /* ── TABLET (max 1024px) ── */
     @media(max-width:1024px){
       nav{padding:18px 40px;}
       nav.scrolled{padding:12px 40px;}
@@ -313,52 +320,32 @@
       .gallery-hero{padding:60px 40px;}
       .menu-hero{padding:60px 40px;}
     }
-
-    /* ── MOBILE (max 768px) ── */
     @media(max-width:768px){
-
-      /* Nav */
       nav{padding:16px 24px;}
       nav.scrolled{padding:12px 24px;}
       .nav-links{display:none;}
       .hamburger{display:flex;}
-
-      /* Hero */
       .hero-eyebrow{font-size:8px;letter-spacing:4px;}
       .hero-title{letter-spacing:-1px;}
       .hero-cta{flex-direction:column;align-items:center;gap:12px;}
       .btn-primary,.btn-outline{width:220px;text-align:center;}
-
-      /* Features strip */
       .features-strip{flex-wrap:wrap;}
       .feature-item{min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,0.15);padding:22px 20px;}
       .feature-item:nth-child(odd){border-right:1px solid rgba(255,255,255,0.15);}
       .feature-item:nth-last-child(-n+2){border-bottom:none;}
-
-      /* Sections */
       section{padding:60px 24px;}
       .testimonials-section{padding:60px 24px;}
-
-      /* About */
       .about-split{grid-template-columns:1fr;gap:40px;}
       .about-img-wrap img{height:320px;}
       .about-img-accent{width:100px;height:100px;bottom:-12px;right:-12px;}
       .about-stats{gap:28px;}
       .stat-num{font-size:38px;}
-
-      /* Dishes grid */
       .dishes-grid-3{grid-template-columns:1fr!important;}
       .dish-card img{height:280px;}
-
-      /* Testimonials */
       .testimonials-grid{grid-template-columns:1fr;}
       .testimonial-card{padding:28px 24px;}
-
-      /* Parallax */
       .parallax-content{padding:0 24px;}
       .parallax-quote-mark{font-size:80px;}
-
-      /* Menu */
       .menu-hero{height:40vh;padding:60px 24px 40px;}
       .menu-categories{gap:8px;}
       .cat-btn{padding:8px 16px;font-size:8px;}
@@ -367,38 +354,24 @@
       .menu-item-img{width:64px;height:64px;}
       .menu-item-name{font-size:15px;}
       .menu-item-price{font-size:18px;}
-
-      /* Gallery */
       .gallery-hero{height:36vh;padding:60px 24px 40px;}
       .gallery-masonry{grid-template-columns:1fr 1fr;}
       .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1;}
       .gallery-item:nth-child(5){grid-column:span 2;}
       .gallery-item img{min-height:180px;}
-
-      /* Reservation */
       .res-layout{grid-template-columns:1fr;}
       .res-left{min-height:50vh;padding:80px 24px 40px;}
       .res-right{padding:40px 24px;}
       .form-row{grid-template-columns:1fr;}
-
-      /* Order grid */
       .order-grid{grid-template-columns:1fr;}
-
-      /* Contact */
       .contact-layout{grid-template-columns:1fr;}
       .contact-info{padding:60px 24px;}
       .contact-map{min-height:260px;}
-
-      /* Footer */
       footer{grid-template-columns:1fr;gap:36px;padding:40px 24px;}
       .footer-bottom{padding:16px 24px;flex-direction:column;text-align:center;}
-
-      /* Ticker */
       .ticker-item{padding:0 28px;}
       .ticker-item::before{margin-right:28px;}
     }
-
-    /* ── SMALL MOBILE (max 480px) ── */
     @media(max-width:480px){
       .hero-eyebrow{font-size:7px;letter-spacing:3px;}
       .loader-logo{font-size:34px;}
@@ -869,25 +842,64 @@
       <h2 class="section-title" style="font-size:32px;margin-bottom:32px">Make a Reservation</h2>
 
       <div class="form-row">
-        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="Ali"/></div>
-        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Khan"/></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="ali@email.com"/></div>
-        <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel" placeholder="+92 300 0000000"/></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Date</label><input class="form-input" type="date"/></div>
-        <div class="form-group"><label class="form-label">Time</label>
-          <select class="form-select"><option>Select time</option><option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option><option>1:30 PM</option><option>2:00 PM</option><option>6:00 PM</option><option>6:30 PM</option><option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option></select>
+        <div class="form-group">
+          <label class="form-label">First Name <span class="req-star">*</span></label>
+          <input class="form-input" id="res-fname" type="text" placeholder="Ali"/>
+          <div class="field-error" id="err-res-fname">First name is required</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name <span class="req-star">*</span></label>
+          <input class="form-input" id="res-lname" type="text" placeholder="Khan"/>
+          <div class="field-error" id="err-res-lname">Last name is required</div>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Guests</label>
-          <select class="form-select"><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option><option>6+ Guests</option></select>
+        <div class="form-group">
+          <label class="form-label">Email Address <span class="req-star">*</span></label>
+          <input class="form-input" id="res-email" type="email" placeholder="ali@email.com"/>
+          <div class="field-error" id="err-res-email">Please enter a valid email address</div>
         </div>
-        <div class="form-group"><label class="form-label">Occasion</label>
-          <select class="form-select"><option>Regular Dining</option><option>Birthday</option><option>Anniversary</option><option>Business Dinner</option><option>Family Gathering</option><option>Proposal</option></select>
+        <div class="form-group">
+          <label class="form-label">Phone Number <span class="req-star">*</span></label>
+          <input class="form-input" id="res-phone" type="tel" placeholder="+92 300 0000000"/>
+          <div class="field-error" id="err-res-phone">Phone number is required</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Date <span class="req-star">*</span></label>
+          <input class="form-input" id="res-date" type="date"/>
+          <div class="field-error" id="err-res-date">Please select a date</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Time <span class="req-star">*</span></label>
+          <select class="form-select" id="res-time">
+            <option value="">Select time</option>
+            <option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option>
+            <option>1:30 PM</option><option>2:00 PM</option><option>6:00 PM</option>
+            <option>6:30 PM</option><option>7:00 PM</option><option>7:30 PM</option>
+            <option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option>
+          </select>
+          <div class="field-error" id="err-res-time">Please select a time</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Guests <span class="req-star">*</span></label>
+          <select class="form-select" id="res-guests">
+            <option value="">Mehman chunein</option>
+            <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
+            <option>4 Guests</option><option>5 Guests</option><option>6+ Guests</option>
+          </select>
+          <div class="field-error" id="err-res-guests">Please select number of guests</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Occasion</label>
+          <select class="form-select" id="res-occasion">
+            <option value="Regular Dining">Regular Dining</option>
+            <option>Birthday</option><option>Anniversary</option>
+            <option>Business Dinner</option><option>Family Gathering</option><option>Proposal</option>
+          </select>
         </div>
       </div>
 
@@ -901,9 +913,12 @@
         </div>
       </div>
 
-      <div class="form-group"><label class="form-label">Special Requests</label><textarea class="form-textarea" placeholder="Dietary requirements, seating preferences, allergies..."></textarea></div>
+      <div class="form-group">
+        <label class="form-label">Special Requests</label>
+        <textarea class="form-textarea" id="res-requests" placeholder="Dietary requirements, seating preferences, allergies..."></textarea>
+      </div>
       <button class="btn-primary" style="width:100%;padding:18px" onclick="submitReservation()">Confirm Reservation</button>
-      <div class="success-msg" id="resSuccess">&#10022; &nbsp; Your reservation has been received. We'll confirm within 2 hours.</div>
+      <div class="success-msg" id="resSuccess">&#10022; &nbsp; Your reservation has been received. We will confirm it within 2 hours.</div>
     </div>
   </div>
 </div>
@@ -931,13 +946,29 @@
       <p class="section-eyebrow" style="text-align:center">Send a Message</p>
       <h2 class="section-title reveal" style="text-align:center;font-size:42px;margin-bottom:48px">Drop Us a Line</h2>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Full name"/></div>
-        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="email@example.com"/></div>
+        <div class="form-group">
+          <label class="form-label">Your Name <span class="req-star">*</span></label>
+          <input class="form-input" id="con-name" type="text" placeholder="Full name"/>
+          <div class="field-error" id="err-con-name">Name is required</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address <span class="req-star">*</span></label>
+          <input class="form-input" id="con-email" type="email" placeholder="email@example.com"/>
+          <div class="field-error" id="err-con-email">Please enter a valid email address</div>
+        </div>
       </div>
-      <div class="form-group"><label class="form-label">Subject</label><input class="form-input" type="text" placeholder="What is this regarding?"/></div>
-      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" style="min-height:140px" placeholder="Your message..."></textarea></div>
+      <div class="form-group">
+        <label class="form-label">Subject <span class="req-star">*</span></label>
+        <input class="form-input" id="con-subject" type="text" placeholder="What is this regarding?"/>
+        <div class="field-error" id="err-con-subject">Subject is required</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message <span class="req-star">*</span></label>
+        <textarea class="form-textarea" id="con-message" style="min-height:140px" placeholder="Your message..."></textarea>
+        <div class="field-error" id="err-con-message">Message is required</div>
+      </div>
       <button class="btn-primary" style="width:100%;padding:18px" onclick="submitContact()">Send Message</button>
-      <div class="success-msg" id="contactSuccess">&#10022; &nbsp; Message received. We'll get back to you within 24 hours.</div>
+      <div class="success-msg" id="contactSuccess">&#10022; &nbsp; Message received. We will respond within 24 hours.</div>
     </section>
   </div>
   <footer style="background:#0d0905;padding:36px 60px;text-align:center;border-top:1px solid rgba(245,240,232,0.06)"><span class="footer-copy">&copy; 2024 Atiya's Kitchen Fine Dining</span></footer>
@@ -945,6 +976,9 @@
 
 
 <script>
+/* ═══════════════════════════════════════
+   MENU / ORDER DATA
+═══════════════════════════════════════ */
 const menuItems = [
   { id:'nihari',  name:'Dum Nihari',            price:1800, cat:'mains'    },
   { id:'biryani', name:'Lahori Mutton Biryani', price:1500, cat:'mains'    },
@@ -1024,13 +1058,135 @@ function updateOrderSummary(){
   totalEl.innerHTML=`Total: Rs.${total.toLocaleString()}`;
 }
 
-// ── LOADER ──
+/* ═══════════════════════════════════════
+   VALIDATION HELPERS
+═══════════════════════════════════════ */
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+function isValidPhone(v){ return v.trim().replace(/[\s\-\(\)]/g,'').length >= 10; }
+
+// Show error on a field
+function showErr(inputId, errId){
+  const inp = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  inp.classList.add('error');
+  inp.classList.remove('valid');
+  err.classList.add('show');
+}
+
+// Clear error on a field
+function clearErr(inputId, errId){
+  const inp = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  inp.classList.remove('error');
+  inp.classList.add('valid');
+  if(err) err.classList.remove('show');
+}
+
+// Validate a single field — returns true if valid
+function validateField(inputId, errId, checkFn){
+  const inp = document.getElementById(inputId);
+  const val = inp.value;
+  if(checkFn(val)){ clearErr(inputId, errId); return true; }
+  else { showErr(inputId, errId); return false; }
+}
+
+// Attach live validation (clears error as user types/changes)
+function attachLiveValidation(inputId, errId, checkFn){
+  const inp = document.getElementById(inputId);
+  if(!inp) return;
+  inp.addEventListener('input',  () => { if(checkFn(inp.value)) clearErr(inputId, errId); });
+  inp.addEventListener('change', () => { if(checkFn(inp.value)) clearErr(inputId, errId); });
+  inp.addEventListener('blur',   () => validateField(inputId, errId, checkFn));
+}
+
+/* ═══════════════════════════════════════
+   RESERVATION VALIDATION
+═══════════════════════════════════════ */
+const resFields = [
+  { id:'res-fname',   err:'err-res-fname',   check: v => v.trim().length >= 2 },
+  { id:'res-lname',   err:'err-res-lname',   check: v => v.trim().length >= 2 },
+  { id:'res-email',   err:'err-res-email',   check: v => isValidEmail(v)       },
+  { id:'res-phone',   err:'err-res-phone',   check: v => isValidPhone(v)       },
+  { id:'res-date',    err:'err-res-date',    check: v => v.trim() !== ''       },
+  { id:'res-time',    err:'err-res-time',    check: v => v.trim() !== ''       },
+  { id:'res-guests',  err:'err-res-guests',  check: v => v.trim() !== ''       },
+];
+
+function initReservationLiveValidation(){
+  resFields.forEach(f => attachLiveValidation(f.id, f.err, f.check));
+}
+
+function submitReservation(){
+  let allValid = true;
+  resFields.forEach(f => {
+    const ok = validateField(f.id, f.err, f.check);
+    if(!ok) allValid = false;
+  });
+
+  if(!allValid){
+    // Scroll to first error
+    const firstErr = document.querySelector('#page-reservation .form-input.error, #page-reservation .form-select.error');
+    if(firstErr) firstErr.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+
+  // All good — show success
+  const s = document.getElementById('resSuccess');
+  s.style.display = 'block';
+  s.scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(() => s.style.display='none', 7000);
+}
+
+/* ═══════════════════════════════════════
+   CONTACT VALIDATION
+═══════════════════════════════════════ */
+const conFields = [
+  { id:'con-name',    err:'err-con-name',    check: v => v.trim().length >= 2      },
+  { id:'con-email',   err:'err-con-email',   check: v => isValidEmail(v)            },
+  { id:'con-subject', err:'err-con-subject', check: v => v.trim().length >= 3      },
+  { id:'con-message', err:'err-con-message', check: v => v.trim().length >= 10     },
+];
+
+function initContactLiveValidation(){
+  conFields.forEach(f => attachLiveValidation(f.id, f.err, f.check));
+}
+
+function submitContact(){
+  let allValid = true;
+  conFields.forEach(f => {
+    const ok = validateField(f.id, f.err, f.check);
+    if(!ok) allValid = false;
+  });
+
+  if(!allValid){
+    const firstErr = document.querySelector('#page-contact .form-input.error, #page-contact .form-textarea.error');
+    if(firstErr) firstErr.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+
+  const s = document.getElementById('contactSuccess');
+  s.style.display = 'block';
+  s.scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(() => s.style.display='none', 7000);
+}
+
+/* ═══════════════════════════════════════
+   LOADER
+═══════════════════════════════════════ */
 window.addEventListener('load',()=>{
   buildOrderGrid();
-  setTimeout(()=>{ document.getElementById('loader').classList.add('gone'); initScrollReveal(); createParticles(); },1900);
+  initReservationLiveValidation();
+  initContactLiveValidation();
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('gone');
+    initScrollReveal();
+    createParticles();
+  },1900);
 });
 
-// ── CURSOR ──
+/* ═══════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════ */
 const cur=document.getElementById('cursor');
 const ring=document.getElementById('cursorRing');
 document.addEventListener('mousemove',e=>{
@@ -1042,7 +1198,9 @@ document.querySelectorAll('a,button,.gallery-item,.dish-card').forEach(el=>{
   el.addEventListener('mouseleave',()=>{ cur.classList.remove('hovering'); ring.classList.remove('hovering'); });
 });
 
-// ── HAMBURGER / MOBILE NAV ──
+/* ═══════════════════════════════════════
+   HAMBURGER / MOBILE NAV
+═══════════════════════════════════════ */
 function toggleMobileNav(){
   const nav=document.getElementById('mobileNav');
   const ham=document.getElementById('hamburger');
@@ -1056,13 +1214,17 @@ function closeMobileNav(){
   document.body.style.overflow='';
 }
 
-// ── NAV SCROLL ──
+/* ═══════════════════════════════════════
+   NAV SCROLL
+═══════════════════════════════════════ */
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
   parallaxEffect();
 });
 
-// ── PARALLAX ──
+/* ═══════════════════════════════════════
+   PARALLAX
+═══════════════════════════════════════ */
 function parallaxEffect(){
   const bg=document.getElementById('parallaxBg');
   if(!bg) return;
@@ -1071,7 +1233,9 @@ function parallaxEffect(){
   bg.style.transform=`translateY(${offset}px)`;
 }
 
-// ── PARTICLES ──
+/* ═══════════════════════════════════════
+   PARTICLES
+═══════════════════════════════════════ */
 function createParticles(){
   const container=document.getElementById('particles');
   if(!container) return;
@@ -1084,7 +1248,9 @@ function createParticles(){
   }
 }
 
-// ── PAGE ROUTING ──
+/* ═══════════════════════════════════════
+   PAGE ROUTING
+═══════════════════════════════════════ */
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
@@ -1096,7 +1262,9 @@ function showPage(name){
   setTimeout(initScrollReveal,100);
 }
 
-// ── SCROLL REVEAL ──
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
 function initScrollReveal(){
   const els=document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
   const io=new IntersectionObserver(entries=>{
@@ -1105,7 +1273,9 @@ function initScrollReveal(){
   els.forEach(el=>{ if(!el.classList.contains('visible')) io.observe(el); });
 }
 
-// ── COUNTER ANIMATION ──
+/* ═══════════════════════════════════════
+   COUNTER ANIMATION
+═══════════════════════════════════════ */
 function animateCounters(){
   document.querySelectorAll('[data-target]').forEach(el=>{
     const target=parseInt(el.dataset.target);
@@ -1122,24 +1292,28 @@ const countObs=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 document.querySelectorAll('.about-stats').forEach(el=>countObs.observe(el));
 
-// ── MENU FILTER ──
+/* ═══════════════════════════════════════
+   MENU FILTER
+═══════════════════════════════════════ */
 function filterMenu(cat,btn){
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.menu-item').forEach(item=>{
-    if(cat==='all'||item.dataset.cat===cat){ item.style.display='flex'; item.style.animation='none'; item.offsetHeight; item.style.animation='fadeUp 0.4s ease forwards'; }
-    else { item.style.display='none'; }
+    if(cat==='all'||item.dataset.cat===cat){
+      item.style.display='flex';
+      item.style.animation='none';
+      item.offsetHeight;
+      item.style.animation='fadeUp 0.4s ease forwards';
+    } else { item.style.display='none'; }
   });
 }
 
-// ── LIGHTBOX ──
+/* ═══════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════ */
 function openLightbox(src){ document.getElementById('lbImg').src=src; document.getElementById('lightbox').classList.add('open'); }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
-
-// ── FORMS ──
-function submitReservation(){ const s=document.getElementById('resSuccess'); s.style.display='block'; setTimeout(()=>s.style.display='none',6000); }
-function submitContact(){ const s=document.getElementById('contactSuccess'); s.style.display='block'; setTimeout(()=>s.style.display='none',6000); }
 
 initScrollReveal();
 </script>
