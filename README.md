@@ -22,7 +22,7 @@ Built as a single HTML file, the project is lightweight, fast, and extremely
 easy to deploy. It is currently live on Vercel and version controlled via GitHub.
 
 ## Live Demo
-[atiyas-kitchen.vercel.app](https://atiyas-kitchen.vercel.app)
+https://atiya-s-kitchen.vercel.app/
 
 ## Tech Stack
 HTML5 · CSS3 · Vanilla JavaScript
